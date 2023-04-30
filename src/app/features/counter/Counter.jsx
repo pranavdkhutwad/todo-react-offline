@@ -25,11 +25,53 @@ const Counter = () => {
     },
   ]);
 
+  const handleIncrement = (id) => {
+    const newProducts = [...products];
+    const index = newProducts.findIndex((product) => product.id === id);
+
+    if (index > -1) {
+      const product = { ...newProducts[index] };
+      product.count = product.count + 1;
+      newProducts[index] = product;
+
+      setProducts(newProducts);
+    }
+  };
+  const handleDecrement = (id) => {
+    const newProducts = [...products];
+    const index = newProducts.findIndex((product) => product.id === id);
+
+    if (index > -1) {
+      const product = { ...newProducts[index] };
+      if (product.count) {
+        product.count = product.count - 1;
+        newProducts[index] = product;
+
+        setProducts(newProducts);
+      }
+    }
+  };
+  const handleDelete = (id) => {
+    const newProducts = products.filter((product) => product.id !== id);
+
+    setProducts(newProducts);
+  };
+
+  const getTotal = () => {
+    return products.reduce((sum, product) => sum + product.count, 0);
+  };
+
   return (
     <section>
-      <p className="total-count">Total 0</p>
+      <p className="total-count">Total {getTotal()}</p>
       {products.map((product) => (
-        <Product key={product.id} product={product} />
+        <Product
+          key={product.id}
+          product={product}
+          onIncrement={handleIncrement}
+          onDecrement={handleDecrement}
+          onDelete={handleDelete}
+        />
       ))}
     </section>
   );

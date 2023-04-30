@@ -9,9 +9,21 @@ const Product = (props) => {
     <div className="product">
       <Badge count={props.product.count} />
       <Image imgPath={props.product.imgPath} />
-      <Button title="-" cls="btn-danger" />
-      <Button title="+" cls="btn-success" />
-      <Button title="delete" cls="btn-danger" />
+      <Button
+        onClick={() => props.onDecrement(props.product.id)}
+        title="-"
+        cls="btn-danger"
+      />
+      <Button
+        onClick={() => props.onIncrement(props.product.id)}
+        title="+"
+        cls="btn-success"
+      />
+      <Button
+        onClick={() => props.onDelete(props.product.id)}
+        title="delete"
+        cls="btn-danger"
+      />
     </div>
   );
 };
